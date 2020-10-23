@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ public class DashboardFragment extends Fragment {
                 textView.setText(s);
             }
         });
+        WebView myWebView = (WebView) root.findViewById(R.id.webview);
+        myWebView.loadUrl("https://www.facebook.com");
         return root;
     }
 }
