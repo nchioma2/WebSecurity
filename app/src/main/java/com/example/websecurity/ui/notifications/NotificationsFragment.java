@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
+=======
+import android.webkit.WebSettings;
+>>>>>>> f57e6324a753757d2faa86cc6034292ce6c578c2
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -30,7 +34,10 @@ public class NotificationsFragment extends Fragment {
 
             }
         });
+
         WebView myWebView = (WebView) root.findViewById(R.id.webview);
+        WebSettings settings = myWebView.getSettings();
+        settings.setJavaScriptEnabled(true);
         myWebView.loadUrl("https://www.facebook.com");
         return root;
     }
