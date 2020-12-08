@@ -1,15 +1,15 @@
 package com.example.websecurity.ui.notifications;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-=======
 import android.webkit.WebSettings;
->>>>>>> f57e6324a753757d2faa86cc6034292ce6c578c2
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,27 +18,36 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.websecurity.R;
+import com.example.websecurity.ui.home.HomeFragment;
 
 public class NotificationsFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
-
+    @SuppressLint({"JavascriptInterface", "AddJavascriptInterface"})
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
 
-            }
-        });
-
-        WebView myWebView = (WebView) root.findViewById(R.id.webview);
+        WebView myWebView = (WebView) root.findViewById(R.id.webview3);
         WebSettings settings = myWebView.getSettings();
         settings.setJavaScriptEnabled(true);
         myWebView.loadUrl("https://www.facebook.com");
+        myWebView.addJavascriptInterface(new MyJS(), "JsShow");
+        myWebView.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url){ view.loadUrl("https://www.google.com");
+            }
+        });
+
         return root;
+    }
+
+    public class MyJS {
+        NotificationsFragment mContext;
+
+
+        public void SendSecret(String secret) {
+            Toast.makeText(getActivity(), secret, Toast.LENGTH_LONG).show();
+
+        }
     }
 }
